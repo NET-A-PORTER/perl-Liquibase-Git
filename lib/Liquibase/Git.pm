@@ -136,9 +136,11 @@ has git_changeset_file => (
 my %default_db_drivers  = (
   postgresql => {
     classpath => '/usr/share/java/postgresql-jdbc.jar',
+    port      => '5432',
   },
   mysql => {
     classpath => '/usr/share/java/mysql-connector-java.jar',
+    port      => '3306',
   },
 );
 
@@ -152,6 +154,15 @@ has classpath => (
   }
 );
 
+has port => (
+  is      => 'lazy',
+  default => sub {
+    my $self = shift;
+
+    return $default_db_drivers{$self->db_type}->{port};
+  }
+);
+
 
 sub liquibase_command_stem {
   my $self = shift;
@@ -159,7 +170,7 @@ sub liquibase_command_stem {
   my $command = "CLASSPATH=".$self->classpath.
     ' /usr/bin/liquibase --changeLogFile='.$self->git_changeset_dir.'/'.$self->git_changeset_file.' '.
     '--url="jdbc:'.$self->db_type.
-    '://'.$self->hostname.':5432/'.
+    '://'.$self->hostname.':'.$self->port.'/'.
     $self->db.'" --username='.$self->username.' --password='.$self->password;
 
   return $command;
