@@ -27,14 +27,19 @@ our $VERSION = '0.01';
 
 =head1 DESCRIPTION
 
-Install this module on a server with Liquibase installed, such as
-liquibase.example.com
+Install this module on a server with Liquibase installed
 
 Assume you have an app with:
-* git repo https://github.com/foo/myapp.git
-  containing a liquibase changeset
-* a database mydb-db1
-* a database host db1.myapp.com
+
+=over
+
+=item * git repo https://github.com/foo/myapp.git containing a liquibase changeset
+
+=item * a database mydb-db1
+
+=item * a database host db1.myapp.com
+
+=back
 
 
 The following code
@@ -48,6 +53,7 @@ The following code
      git_changeset_dir => 'db/db1',
      git_identifier    => 'master',
      db_type           => 'postgresql',
+     port              => '5432', # OPTIONAL
      changeset_file    => 'changeset.xml',
   );
 
@@ -66,10 +72,13 @@ Only prints out the changes which would take place.
 __THIS IS A DEVELOPMENT RELEASE. MAY CHANGE WITHOUT NOTICE__.
 
 
-=head1 SEE ALSO
+=head1 REFERENCE
+
+<http://www.liquibase.org/>
+
+=head1 ALTERNATIVE
 
 L<App::Sqitch>
-<http://www.liquibase.org/>
 
 =cut
 
