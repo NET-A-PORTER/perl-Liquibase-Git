@@ -6,6 +6,8 @@ use feature 'say';
 use Liquibase::Git;
 use Getopt::Long::Descriptive;
 
+# PODNAME: liquibase-git
+
 =head2 CLI
 
   liquibase-git [parameters]
